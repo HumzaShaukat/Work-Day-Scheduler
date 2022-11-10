@@ -1,13 +1,52 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+var main = $("#main");
+var curTime = dayjs().format("H");
+var saveBtn = $(".saveBtn");
 
-$(function () {
-  for (var i = 0; i < 24; i++) {
-    var div = $("<div>").setAttribute("id",i).setAttribute("class", "row time-block");
-    var textarea = $('<textarea class = "col-2 col-md-10 description" rows = "3">');
-
+function timeCards() {
+  for (var i = 9; i < 18; i++) {
+    var div = $('<div class = "row time-block">');
+    div.attr("id",i);
+    var textdiv = $('<div class="col-2 col-md-1 hour text-center py-3">');
+    var textarea = $('<textarea class="col-8 col-md-10 description" rows="3">');
+    var btn = $('<button class = "btn saveBtn col-2 col-md-1" aria-label="save">');
+    var ibtn = $('<i class="fas fa-save" aria-hidden="true">');
+    if (i == 0) {
+      textdiv.text("12AM");
+    } else if (i < 12) {
+      textdiv.text(i + "AM");
+    } else if (i == 12) {
+      textdiv.text(i + "PM");
+    } else {
+      textdiv.text((i-12) + "PM");
+    }
+    btn.append(ibtn);
+    main.append(div)
+    div.append(textdiv)
+    div.append(textarea)
+    div.append(btn);
   }
+}
+function currentSlot() {
+  for (var i = 9; i < 18; i++) {
+    if (i < curTime) {
+      $("#"+i).addClass("past");
+    } else if (i == curTime) {
+      $("#"+i).addClass("present");
+    } else {
+      $("#"+i).addClass("future");
+    }
+  }
+}
+$(function () {
+  timeCards();
+  currentSlot();
+  curTime.change(currentSlot);
+  // $(".saveBtn").addEventListener("click",function(this){
+  //   window.alert("hi");
+  // })
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
