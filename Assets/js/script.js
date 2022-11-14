@@ -45,6 +45,8 @@ function currentSlot() {  //simple function to use day.js output to assign past,
 }
 $(function () {
   var savedEvents = new Array(24);
+  timeCards();
+  currentSlot();
   var dynamicUpdatedTime = setInterval(currentSlot,1000);
   $(".saveBtn").click(function(event) {
     var savedParent = this.parentElement;
@@ -55,7 +57,5 @@ $(function () {
     localStorage.setItem("events", JSON.stringify(savedEvents));
     
   })
-  timeCards();
-  currentSlot();
   $("#currentDay").text(dayjs().format("MMM DD, YYYY"));
 });
