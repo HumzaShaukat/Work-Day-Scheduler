@@ -2,6 +2,7 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 var main = $("#main");
+
 function timeCards() { //function to dynamically create new time blocks given the correct formatting classes.
   for (var i = 9; i < 18; i++) {
     var div = $('<div class = "row time-block">');
@@ -14,7 +15,7 @@ function timeCards() { //function to dynamically create new time blocks given th
     if (savedEvents[i] !== null) {
       textarea.text(savedEvents[i]);
     }
-    if (i == 0) {
+    if (i == 0) {  //The code labels the row blocks by time.  It is created to handle all 24 hours
       textdiv.text("12AM");
     } else if (i < 12) {
       textdiv.text(i + "AM");
@@ -23,14 +24,14 @@ function timeCards() { //function to dynamically create new time blocks given th
     } else {
       textdiv.text((i-12) + "PM");
     }
-    btn.append(ibtn);
+    btn.append(ibtn); //all the dynamically created elements are apended to the main div
     main.append(div)
     div.append(textdiv)
     div.append(textarea)
     div.append(btn);
   }
 }
-function currentSlot() {
+function currentSlot() {  //simple function to use day.js output to assign past, present, future class to the time cards
   var curTime = dayjs().format("H");
   for (var i = 9; i < 18; i++) {
     if (i < curTime) {
@@ -45,17 +46,9 @@ function currentSlot() {
 $(function () {
   var savedEvents = new Array(24);
   timeCards();
+  currentSlot();
   var dynamicUpdatedTime = setInterval(currentSlot,1000);
-  // $(".saveBtn").click(function(event) {
-  //   var clickEvt = event.currentTarget;
-  //   var savedParent = clickEvt.parentElement;
-  //   var parID = savedParent.id;
-  //   var saved = $("#"+parID).children("textarea").val();
-  //   savedEvents = JSON.parse(localStorage.getItem("events"));
-  //   savedEvents[parID] = saved;
-  //   localStorage.setItem("events", JSON.stringify(savedEvents));
 
-  // })
   $(".saveBtn").click(function(event) {
     var savedParent = this.parentElement;
     var parID = savedParent.id;
@@ -66,22 +59,4 @@ $(function () {
 
   })
   $("#currentDay").text(dayjs().format("MMM DD, YYYY"));
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
 });
