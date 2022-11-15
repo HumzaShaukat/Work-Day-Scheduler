@@ -50,7 +50,7 @@ $(function () {
   timeCards();
   currentSlot();
   var dynamicUpdatedTime = setInterval(currentSlot,1000);
-  $(".saveBtn").click(function(event) {
+  $(".saveBtn").click(function(event) { //saves target element to local storage
     var savedParent = this.parentElement;
     var parID = savedParent.id;
     var saved = $("#"+parID).children("textarea").val();
