@@ -11,10 +11,11 @@ function timeCards() { //function to dynamically create new time blocks given th
     var textarea = $('<textarea class="col-8 col-md-10 description" rows="3">');
     var btn = $('<button class = "btn saveBtn col-2 col-md-1" aria-label="save">');
     var ibtn = $('<i class="fas fa-save" aria-hidden="true">');
-    savedEvents = JSON.parse(localStorage.getItem("events"));
-    if (savedEvents[i] !== null) {
-      textarea.text(savedEvents[i]);
-    }
+    // savedEvents = JSON.parse(localStorage.getItem("events"));
+    // if (savedEvents[i] !== null) {
+    //   textarea.text(savedEvents[i]);
+    // }
+    writeTextBox(textarea,i);
     if (i == 0) {  //The code labels the row blocks by time.  It is created to handle all 24 hours
       textdiv.text("12AM");
     } else if (i < 12) {
@@ -45,6 +46,8 @@ function currentSlot() {  //simple function to use day.js output to assign past,
 }
 $(function () {
   var savedEvents = new Array(24);
+  timeCards();
+  currentSlot();
   var dynamicUpdatedTime = setInterval(currentSlot,1000);
   $(".saveBtn").click(function(event) {
     var savedParent = this.parentElement;
@@ -55,7 +58,12 @@ $(function () {
     localStorage.setItem("events", JSON.stringify(savedEvents));
     
   })
-  timeCards();
-  currentSlot();
   $("#currentDay").text(dayjs().format("MMM DD, YYYY"));
 });
+
+function writeTextBox(base,index){
+  savedEvents = JSON.parse(localStorage.getItem("events"));
+  if (savedEvents[index] !== null) {
+    base.text(savedEvents[index]);
+  }
+}
