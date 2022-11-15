@@ -15,9 +15,8 @@ function timeCards() { //function to dynamically create new time blocks given th
     savedEvents = JSON.parse(localStorage.getItem("events"));
     if (savedEvents[i] !== null) {
       textarea.text(savedEvents[i]);
+      }
     }
-    }
-    writeTextBox(textarea,i);
     if (i == 0) {  //The code labels the row blocks by time.  It is created to handle all 24 hours
       textdiv.text("12AM");
     } else if (i < 12) {
