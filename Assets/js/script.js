@@ -45,25 +45,20 @@ function currentSlot() {  //simple function to use day.js output to assign past,
   }
 }
 
-function writeTextBox(base,index){
-  savedEvents = JSON.parse(localStorage.getItem("events"));
-  if (savedEvents[index] !== null) {
-    base.text(savedEvents[index]);
-  }
-}
-
 $(function () {
+  var savedEvents = new Array(24);
   timeCards();
   currentSlot();
   var dynamicUpdatedTime = setInterval(currentSlot,1000);
   $(".saveBtn").click(function(event) {
-    var savedEvents = new Array(24);
     var savedParent = this.parentElement;
     var parID = savedParent.id;
     var saved = $("#"+parID).children("textarea").val();
-    savedEvents = JSON.parse(localStorage.getItem("events"));
+    if (JSON.parse(localStorage.getItem("events") !== null)) {
+      savedEvents = JSON.parse(localStorage.getItem("events"));
+    }
     savedEvents[parID] = saved;
     localStorage.setItem("events", JSON.stringify(savedEvents));
-  })
+  });
   $("#currentDay").text(dayjs().format("MMM DD, YYYY"));
 });
