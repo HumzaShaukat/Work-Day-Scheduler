@@ -59,6 +59,6 @@ $(function () {
     }
     savedEvents[parID] = saved;
     localStorage.setItem("events", JSON.stringify(savedEvents));
-  });
+  })
   $("#currentDay").text(dayjs().format("MMM DD, YYYY"));
 });
