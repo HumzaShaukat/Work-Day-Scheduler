@@ -10,7 +10,7 @@ Enter any text into the textareas by the time you would like and hit the save bu
 
 ## Demo
 
-Here is a screenshot of the deployed website ![image](assets/Images/demo.JPG)
+Here is a screenshot of the deployed website ![image](Assets/Images/demo.JPG)
 The project can be found deployed on [github](https://humzashaukat.github.io/Work-Day-Scheduler/)
 
 ## License
