@@ -13,9 +13,7 @@ function timeCards() { //function to dynamically create new time blocks given th
     var ibtn = $('<i class="fas fa-save" aria-hidden="true">');
    if (localStorage.getItem("events") !== null) {
     savedEvents = JSON.parse(localStorage.getItem("events"));
-    if (savedEvents[i] !== null) {
-      textarea.text(savedEvents[i]);
-      }
+    textarea.text(savedEvents[i]);
     }
     if (i == 0) {  //The code labels the row blocks by time.  It is created to handle all 24 hours
       textdiv.text("12AM");
