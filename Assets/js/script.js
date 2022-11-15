@@ -11,10 +11,12 @@ function timeCards() { //function to dynamically create new time blocks given th
     var textarea = $('<textarea class="col-8 col-md-10 description" rows="3">');
     var btn = $('<button class = "btn saveBtn col-2 col-md-1" aria-label="save">');
     var ibtn = $('<i class="fas fa-save" aria-hidden="true">');
-    // savedEvents = JSON.parse(localStorage.getItem("events"));
-    // if (savedEvents[i] !== null) {
-    //   textarea.text(savedEvents[i]);
-    // }
+   if (localStorage.getItem("events") !== null) {
+    savedEvents = JSON.parse(localStorage.getItem("events"));
+    if (savedEvents[i] !== null) {
+      textarea.text(savedEvents[i]);
+    }
+    }
     writeTextBox(textarea,i);
     if (i == 0) {  //The code labels the row blocks by time.  It is created to handle all 24 hours
       textdiv.text("12AM");
@@ -32,6 +34,7 @@ function timeCards() { //function to dynamically create new time blocks given th
     div.append(btn);
   }
 }
+
 function currentSlot() {  //simple function to use day.js output to assign past, present, future class to the time cards
   var curTime = dayjs().format("H");
   for (var i = 9; i < 18; i++) {
@@ -44,6 +47,14 @@ function currentSlot() {  //simple function to use day.js output to assign past,
     }
   }
 }
+
+function writeTextBox(base,index){
+  savedEvents = JSON.parse(localStorage.getItem("events"));
+  if (savedEvents[index] !== null) {
+    base.text(savedEvents[index]);
+  }
+}
+
 $(function () {
   var savedEvents = new Array(24);
   timeCards();
@@ -56,14 +67,6 @@ $(function () {
     savedEvents = JSON.parse(localStorage.getItem("events"));
     savedEvents[parID] = saved;
     localStorage.setItem("events", JSON.stringify(savedEvents));
-    
   })
   $("#currentDay").text(dayjs().format("MMM DD, YYYY"));
 });
-
-function writeTextBox(base,index){
-  savedEvents = JSON.parse(localStorage.getItem("events"));
-  if (savedEvents[index] !== null) {
-    base.text(savedEvents[index]);
-  }
-}
