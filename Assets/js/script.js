@@ -53,11 +53,11 @@ function writeTextBox(base,index){
 }
 
 $(function () {
-  var savedEvents = new Array(24);
   timeCards();
   currentSlot();
   var dynamicUpdatedTime = setInterval(currentSlot,1000);
   $(".saveBtn").click(function(event) {
+    var savedEvents = new Array(24);
     var savedParent = this.parentElement;
     var parID = savedParent.id;
     var saved = $("#"+parID).children("textarea").val();
